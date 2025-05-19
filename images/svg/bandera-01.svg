@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 106.4 70.94">
+  <!-- Generator: Adobe Illustrator 29.4.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 152)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #f0f0f0;
+      }
+
+      .st0, .st1 {
+        fill-rule: evenodd;
+      }
+
+      .st1 {
+        fill: #ff1612;
+      }
+    </style>
+  </defs>
+  <path class="st1" d="M35.47,70.94V0H11.12C4.98,0,0,4.98,0,11.13v48.68c0,6.14,4.98,11.12,11.12,11.12h24.34ZM70.93,70.94h24.34c6.14,0,11.12-4.98,11.12-11.12V11.13C106.4,4.98,101.42,0,95.28,0h-24.34v70.93h0Z"/>
+  <polygon class="st0" points="35.47 70.94 70.93 70.94 70.93 0 35.47 0 35.47 70.94 35.47 70.94"/>
+</svg>
