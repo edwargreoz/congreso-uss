@@ -1393,7 +1393,7 @@
   </script>
 
 
-  <script>
+  <!-- <script>
     new WOW({
       boxClass: 'wow',      // Clase base
       animateClass: 'animate__animated', // Clase de animate.css
@@ -1445,7 +1445,7 @@
         }
       }
 
-      fetch('crea.php', {
+      fetch('https://yerridev.pythonanywhere.com/api_agregarInscripcion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datos)
@@ -1468,10 +1468,123 @@
 
       return false;
     }
-  </script>
+  </script> -->
 
 
+<script>
+// Elimina una de las inclusiones de jQuery (deja solo una)
+$(document).ready(function () {
+  // Configuración del carrusel
+  $('.owl-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    items: 3,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    responsive: {
+      0: { items: 1 },
+      768: { items: 2 },
+      992: { items: 3 }
+    }
+  });
 
+  // Inicialización de WOW.js
+  new WOW({
+    boxClass: 'wow',
+    animateClass: 'animate__animated',
+    offset: 100,
+    mobile: true,
+    live: true
+  }).init();
+
+  // Manejo de checkboxes mutuamente excluyentes
+  $("#sin_constancia, #con_constancia").change(function() {
+    if(this.checked) {
+      if(this.id === 'sin_constancia') {
+        $("#con_constancia").prop('checked', false);
+      } else {
+        $("#sin_constancia").prop('checked', false);
+      }
+    }
+  });
+});
+
+// Función mejorada para enviar el formulario
+function enviarFormulario(event) {
+  event.preventDefault();
+  
+  // Validación básica
+  const requiredFields = ['fullname', 'lastname', 'documento', 'email', 'phone', 
+                         'ciudad', 'pais', 'cargo', 'empresa', 'participacion'];
+  
+  for(const field of requiredFields) {
+    if(!$(`#${field}`).val().trim()) {
+      alert(`Por favor complete el campo: ${$(`#${field}`).attr('placeholder') || field}`);
+      $(`#${field}`).focus();
+      return false;
+    }
+  }
+  
+  if(!$("#acepto").is(":checked")) {
+    alert("Debe aceptar la política de privacidad");
+    return false;
+  }
+
+  // Preparar datos para enviar
+  const formData = {
+    fullname: $("#fullname").val().trim(),
+    lastname: $("#lastname").val().trim(),
+    documento: $("#documento").val().trim(),
+    email: $("#email").val().trim(),
+    phone: $("#phone").val().trim(),
+    ciudad: $("#ciudad").val().trim(),
+    pais: $("#pais").val().trim(),
+    cargo: $("#cargo").val(),
+    empresa: $("#empresa").val().trim(),
+    participacion: $("#participacion").val(),
+    sin_constancia: $("#sin_constancia").is(":checked") ? 'S' : 'N',
+    con_constancia: $("#con_constancia").is(":checked") ? 'S' : 'N',
+    acepto: $("#acepto").is(":checked") ? 'S' : 'N'
+  };
+
+  // Mostrar feedback al usuario
+  const $btn = $("#mandar");
+  $btn.prop("disabled", true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Enviando...');
+
+  // Enviar datos al servidor
+  fetch('https://yerridev.pythonanywhere.com/api_agregarInscripcion', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  })
+  .then(response => {
+    if(!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    if(data.success && data.redirect) {
+      window.location.href = data.redirect;
+    } else if(data.duplicate) {
+      alert("Ya existe un registro con este documento o correo electrónico.");
+    } else {
+      alert(data.message || "Error desconocido al procesar su registro.");
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("Ocurrió un error al enviar el formulario. Por favor intente nuevamente.");
+  })
+  .finally(() => {
+    $btn.prop("disabled", false).text("Enviar");
+  });
+
+  return false;
+}
+</script>
 
 
 
