@@ -120,7 +120,7 @@ footer {
     .__portada .__movtit {
       display: block;
       width: 80%;
-      margin-left: 10%; }
+      margin-left: 40%; }
     .__portada .__movchi {
       display: block; }
     .__portada .__movtit2 {
@@ -140,7 +140,7 @@ footer {
     .__portada .__titulogens {
       position: relative; }
       .__portada .__titulogens img {
-        height: 30vh; }
+        height: 45vh; }
     .__portada .__form {
       margin-top: 15px;
       background-color: rgba(51, 51, 51, 0.8);
@@ -1700,4 +1700,11 @@ footer {
         font-size: 70px;
         font-weight: bold; } }
 
+
+@media (min-width: 769px) and (max-width: 1040px) {
+  .__portada .__titulogens img {
+    height: 58vh;
+    margin-right: 130px;
+  }
+}
 /*# sourceMappingURL=master.css.map */
